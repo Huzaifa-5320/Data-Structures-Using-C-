@@ -3,6 +3,8 @@
 #include<sstream>
 #include<vector>
 #include<queue>
+#include <limits>
+#include <algorithm>
 using namespace std;
 
 struct Node
@@ -206,6 +208,47 @@ public:
         cout << endl;
     }
 
+    int minValue(vector<int> distance)
+    {
+        int min_value = *min_element(distance.begin(), distance.end());
+        return min_value;
+    }
+
+    void dijkstra(int startingvertex)
+    {
+        vector<bool> selected(numVertices,false);
+        vector<int> distance(numVertices,numeric_limits<int>::max());
+        queue<int> q;
+        startingvertex--;
+        while(selected[numVertices-1]!=true)
+        {
+            distance[startingvertex]=0;
+            selected[startingvertex]=true;
+            Node* temp = adjList[startingvertex];
+            while(temp!=nullptr)
+            {
+                q.push(temp->vertex);
+                distance[temp->vertex] = temp->weight;
+                temp = temp->next;
+            }   
+        }
+
+        Node* temp1 = adjList[minValue(distance)];
+        while(temp1!=nullptr)
+        {
+            if(distance[temp1->vertex]+temp1->weight < temp1->weight)
+            {
+                distance[temp1->vertex]=distance[temp1->vertex]+temp1->weight;
+            }
+        }
+
+
+        selected[minValue(distance)]=true;
+   
+
+
+    }
+
     void printList()
     {
         for(int i=0;i<numVertices;i++)
@@ -286,6 +329,7 @@ int main()
 
     // g.BFS_AdjList(1);
 
-    g.topologicalSort();
+    // g.topologicalSort();
+    
     
 }
