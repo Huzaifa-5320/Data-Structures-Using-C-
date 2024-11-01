@@ -4,7 +4,6 @@
 #include<vector>
 #include<queue>
 #include <limits>
-#include <algorithm>
 using namespace std;
 
 struct Node
@@ -208,31 +207,48 @@ public:
         cout << endl;
     }
 
-    int minValue(vector<int> distance)
-    {
-        int min_value = *min_element(distance.begin(), distance.end());
-        return min_value;
-    }
 
     void dijkstra(int startingvertex)
     {
-        vector<bool> selected(numVertices,false);
-        vector<int> distance(numVertices,numeric_limits<int>::max());
-        queue<int> q;
-        startingvertex--;
-        q.push(startingvertex);
-        while(!q.empty())
+        vector<int> distances(numVertices,numeric_limits<int>::max());
+        distances[startingvertex-1]=0;
+        priority_queue<pair<int,int>,vector<pair<int,int>>,greater<pair<int,int>>>minHeap;
+        minHeap.push({0,startingvertex-1});
+
+        while(!minHeap.empty())
         {
-            distance[startingvertex]=0;
-            selected[startingvertex]=true;
-            Node* temp = adjList[startingvertex];
-            while(temp!=nullptr)
+            int currentDistance = minHeap.top().first;
+            int u = minHeap.top().second;
+            minHeap.pop();
+
+            if (currentDistance > distances[u]) continue;
+
+            Node* neighbor = adjList[u];
+            while(neighbor!=nullptr)
             {
-                q.push(temp->vertex);
-                distance[temp->vertex] = temp->weight;
-                temp = temp->next;
-            }   
+                int v = neighbor->vertex;
+                int weight = neighbor->weight;
+
+                if(distances[u]+weight<distances[v])
+                {
+                    distances[v]=distances[u]+weight;
+                    minHeap.push({distances[v],v});
+                }
+                neighbor = neighbor->next;
+            }
         }
+
+        // Print the shortest distances from the start vertex
+        cout << "Shortest distances from vertex " << startingvertex << ":" << endl;
+        for (int i = 0; i < numVertices; i++)
+        {
+            cout << "Vertex " << (i + 1) << " : ";
+            if (distances[i] == numeric_limits<int>::max())
+                cout << "INF" << endl; // No path to this vertex
+            else
+                cout << distances[i] << endl;
+    }
+
     }
 
     void printList()
@@ -260,6 +276,7 @@ vector<string> split (const string &str,char delim)
 {
     vector<string> tokens;
     stringstream ss(str);
+    ///  For reading from or writing to a string as a stream, useful for in-memory string manipulation and parsing.
     string token;
     while(getline(ss,token,delim))
     {
@@ -271,6 +288,7 @@ vector<string> split (const string &str,char delim)
 int main()
 {
     ifstream inputFile("graph_input.txt");
+    // For reading data directly from a file on disk.
 
     if(!inputFile.is_open())
     {
@@ -316,6 +334,8 @@ int main()
     // g.BFS_AdjList(1);
 
     // g.topologicalSort();
+
+    g.dijkstra(1);
     
     
 }
