@@ -220,7 +220,8 @@ public:
         vector<int> distance(numVertices,numeric_limits<int>::max());
         queue<int> q;
         startingvertex--;
-        while(selected[numVertices-1]!=true)
+        q.push(startingvertex);
+        while(!q.empty())
         {
             distance[startingvertex]=0;
             selected[startingvertex]=true;
@@ -232,21 +233,6 @@ public:
                 temp = temp->next;
             }   
         }
-
-        Node* temp1 = adjList[minValue(distance)];
-        while(temp1!=nullptr)
-        {
-            if(distance[temp1->vertex]+temp1->weight < temp1->weight)
-            {
-                distance[temp1->vertex]=distance[temp1->vertex]+temp1->weight;
-            }
-        }
-
-
-        selected[minValue(distance)]=true;
-   
-
-
     }
 
     void printList()
