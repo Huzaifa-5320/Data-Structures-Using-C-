@@ -4,6 +4,7 @@
 #include<vector>
 #include<queue>
 #include <limits>
+#include <climits>
 using namespace std;
 
 struct Node
@@ -247,8 +248,46 @@ public:
                 cout << "INF" << endl; // No path to this vertex
             else
                 cout << distances[i] << endl;
+        }
     }
 
+    void primMST()
+    {
+        vector<int> parent(numVertices,-1);
+        vector<int> key(numVertices,INT_MAX);
+        vector<bool> inMST(numVertices,false);
+
+        priority_queue<pair<int,int>,vector<pair<int,int>>,greater<pair<int,int>>>pq;
+        key[0]=0;
+        pq.push({0,0});
+
+        while(!pq.empty())
+        {
+            int u = pq.top().second;
+            pq.pop();
+            inMST[u] = true;
+
+            Node* neighbor = adjList[u];
+            while(neighbor!=nullptr)
+            {
+                int v = neighbor->vertex;
+                int weight = neighbor->weight;
+
+                if(!inMST[v] && weight < key[v])
+                {
+                    key[v] = weight;
+                    pq.push({key[v],v});
+                    parent[v]=u;
+                }
+                neighbor=neighbor->next;
+            }
+        }
+
+        cout << "Prim's MST Nodes with weights:"<<endl;
+        for(int i=1;i<numVertices;i++)
+        {
+            cout<<parent[i]+1<<"-"<<i+1<<":"<<key[i]<<endl;
+        }
     }
 
     void printList()
@@ -335,7 +374,8 @@ int main()
 
     // g.topologicalSort();
 
-    g.dijkstra(1);
-    
-    
+    // g.dijkstra(1);
+
+    g.primMST();
+
 }
