@@ -24,7 +24,7 @@ class Queue{
         rear=NULL;
     }
 
-    void EnQueue(int x){
+    void enQueue(int x){
         Node *temp=new Node(x);
         if(front==NULL){
             front=temp;
@@ -35,7 +35,7 @@ class Queue{
         rear=temp;
     }
 
-    int DeQueue(){
+    int deQueue(){
         if(front==NULL){
             cout<<"Queue Underflow"<<endl;
             return -1;
@@ -53,7 +53,7 @@ class Queue{
         return front->data;
     }
 
-    bool empty(){
+    bool isEmpty(){
         if (front==NULL){
             return true;
         }
@@ -64,17 +64,17 @@ class Queue{
 
 int main(){
     Queue q;
-    q.EnQueue(1);
-    q.EnQueue(2);
-    q.EnQueue(3);
-    q.EnQueue(4);
-    q.EnQueue(5);
-    cout<< q.DeQueue() << endl;
-    cout<< q.DeQueue() << endl;
-    cout<< q.DeQueue() << endl;
-    cout<< q.DeQueue() << endl;
-    cout<< q.DeQueue() << endl;
-    cout<< q.DeQueue() << endl;
+    q.enQueue(1);
+    q.enQueue(2);
+    q.enQueue(3);
+    q.enQueue(4);
+    q.enQueue(5);
+    cout<< q.deQueue() << endl;
+    cout<< q.deQueue() << endl;
+    cout<< q.deQueue() << endl;
+    cout<< q.deQueue() << endl;
+    cout<< q.deQueue() << endl;
+    // cout<< q.deQueue() << endl; //  will cause Queue underflow
 
     return 0;
 };

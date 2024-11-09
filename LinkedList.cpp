@@ -15,26 +15,19 @@ class Node{
 
 };
 
-void insertAtHead(int data,Node *&head)
+void insert(int data, Node *&head)
 {
     Node *newNode = new Node(data);
-    if(head==nullptr)
-    {
-        head = newNode;
-    }
-    newNode->data = data;
-    if(head!=nullptr)
-    {
-        newNode->next=head;
-    }
-    head = newNode;
+    newNode->next = head;  // Works correctly whether head is nullptr or not
+    head = newNode;         // Update head to point to the new node
 }
 
-void insertAtTail(int data,Node *&head)
+
+void append(int data,Node *&head)
 {
     if(head == nullptr)
     {
-        insertAtHead(data,head);
+        insert(data,head);
         return;
     }
     Node *newNode = new Node(data);
@@ -45,6 +38,65 @@ void insertAtTail(int data,Node *&head)
     }
     temp->next = newNode;
 }
+
+void search(int data,Node *head)
+{
+    Node *temp = head;
+    int key = data;
+    int count=1;
+    while(temp!=nullptr)
+    {
+        if(key==temp->data)
+        {
+            cout << "Value exists at Position:" << count << endl;
+            
+        }
+        count++;
+        temp=temp->next;
+    }
+}
+
+void deleteNode(int pos,Node *&head)
+{
+    if (head == nullptr) 
+    {
+        cout << "Error: The list is empty!" << endl;
+        return;
+    }
+
+    int count=1;
+    Node* temp = head;
+    
+
+    if(pos==1)
+    {
+        Node* toDelete = head;
+        head = head->next;
+        delete toDelete;
+        return;
+    }
+ 
+    // Traverse to the node just before the target position
+    while(temp!=nullptr && count < pos-1)
+    {
+        count++;
+        temp = temp->next;
+    }
+   
+    // Check if the position is valid (node exists)
+    if (temp == nullptr || temp->next == nullptr) {
+        cout << "Error: Position " << pos << " does not exist in the list!" << endl;
+        return;
+    }
+
+
+    if(temp!=nullptr && temp->next!=nullptr){
+        Node* toDelete = temp->next;
+        temp->next = toDelete->next;
+        delete toDelete;
+    }
+}
+
 
 void viewList(Node *ptr)
 {
@@ -71,19 +123,28 @@ int main(){
     second->next = third;
     third->next = fourth;
  
-    viewList(head);
+    // viewList(head);
 
-    insertAtHead(5,head);
-    viewList(head);
+    // insert(5,head);
+    // viewList(head);
 
-    insertAtTail(6,head);
+    append(5,head);
+    append(6,head);
+    // viewList(head);
+
+    // search(4,head);
+
+
+    deleteNode(1,head); // works as expected
+    viewList(head);   
+    deleteNode(5,head); // works as expected
     viewList(head);
 
     // Test Case
     // Node *testNode = NULL;
-    // insertAtTail(1,testNode);
-    // insertAtTail(2,testNode);
-    // insertAtTail(3,testNode);
+    // append(1,testNode);
+    // append(2,testNode);
+    // append(3,testNode);
     // viewList(testNode);
 
     
