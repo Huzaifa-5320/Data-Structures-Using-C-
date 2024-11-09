@@ -44,43 +44,28 @@ void expTree(string postfix, int &top, ETNode *stack[]) {
     }
 }
 
-void InOrder(ETNode *node) {
+void inOrder(ETNode *node)
+{
     if (node == NULL) return;
-    if (node->LC!=NULL){
-        InOrder(node->LC);
-    } 
+    inOrder(node->LC);
     cout << node->data << " ";
-    if (node->RC != NULL) {
-        InOrder(node->RC);
-    }
+    inOrder(node->RC);
 }
 
-// void preOrder(ETNode *node) {
-//     if (node == NULL) return;
-//     cout << node->data << " ";
-//     if (node->LC!=NULL){
-//         preOrder(node->LC);
-//     } 
-//     if (node->RC != NULL) {
-//         preOrder(node->RC);
-//     }
-// }
-void preOrder(ETNode *node) {
+void preOrder(ETNode *node) 
+{
     if (node == NULL) return;
     cout << node->data << " ";
     preOrder(node->LC);
     preOrder(node->RC);
-
 }
 
-void postOrder(ETNode *node) {
+void postOrder(ETNode *node) 
+{
     if (node == NULL) return;
-    if (node->LC!=NULL){
-        postOrder(node->LC);
-    } 
-    if (node->RC != NULL) {
-        postOrder(node->RC);
-    }
+
+    postOrder(node->LC);
+    postOrder(node->RC);
     cout << node->data << " ";
 }
 
@@ -102,7 +87,7 @@ int main() {
     if (top == 0) {
         root = stack[top];
         cout << "Inorder Traversal of the Expression Tree: ";
-        InOrder(root);
+        inOrder(root);
         cout << endl;
         cout << "Preorder Traversal of the Expression Tree: ";
         preOrder(root);
