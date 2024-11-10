@@ -9,10 +9,7 @@ struct Node{
 
 void inOrder(Node *root) 
 {
-    if (root == nullptr)
-    {
-        return;
-    }
+    if (root == nullptr) return;
     inOrder(root->LC);
     cout << root->data << " ";
     inOrder(root->RC);
@@ -20,22 +17,15 @@ void inOrder(Node *root)
 
 void preOrder(Node *root) 
 {
-    if (root == nullptr)
-    {
-        return;
-    }
+    if (root == nullptr) return;
     cout << root->data << " ";
     preOrder(root->LC);
     preOrder(root->RC);
-
 }
 
 void postOrder(Node *root) 
 {
-   if (root == nullptr)
-    {
-        return;
-    }
+   if (root == nullptr) return;
     postOrder(root->LC);
     postOrder(root->RC);
     cout << root->data << " ";
@@ -84,7 +74,7 @@ Node *findMax(Node *&root)
     return findMax(root->RC);
 }
 
-Node *findMin(Node *&root)
+Node* findMin(Node *&root)
 {
     if(root == nullptr)
     {
@@ -122,10 +112,7 @@ bool binarySearch(int key,Node *&root){
 
 void deleteKey(int key,Node *&root)
 {
-    if (root == nullptr)
-    {
-        return;
-    }
+    if (root == nullptr) return;
     
     if(root->data == key)
     {

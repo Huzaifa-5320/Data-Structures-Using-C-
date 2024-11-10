@@ -136,7 +136,7 @@ void insert(int key)
     loadFactor = (double)n/hashSize;
 
     // if load factor exceeds 0.5, increase the size of the hash table;
-    if (loadFactor > 0.5)
+    if (loadFactor > 0.7)
     {
         increaseSize();
     }
@@ -154,7 +154,6 @@ int search(int key)
         {
             return HI;
         } 
-
         // move to next index
         HI = (HI + 1)%hashSize;
 
@@ -184,10 +183,10 @@ int main()
     insert(8);
     insert(9);
     insert(10);
-    insert(14); // first increase will be after inserting 14.
+    insert(14);
     insert(15);
     insert(16);
-    insert(21); // second increase will be after inserting 21.
+    insert(21); 
     insert(22);
     insert(23);
 

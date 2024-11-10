@@ -56,7 +56,7 @@ int getBalanceFactor(Node *n)
 }
 
 Node* rightRotate(Node* y)
-{
+{ 
     Node *x = y->LC;
     Node *T2 = x->RC;
 
@@ -127,7 +127,7 @@ Node* insert(int data,Node *&root)
     }
     return root;
 }
-
+ 
 int main()
 {
     Node *root = NULL;
