@@ -93,9 +93,7 @@ void increaseSize()
 
                 // move to the  next node in the old chain
                 current = current->next;
-
             }
-
         }
     }
 
@@ -162,7 +160,7 @@ void insert(int key){
     // updating the load balancer after each insertion 
     loadFactor = (double)n / hashSize;
 
-    if (loadFactor > 0.5)
+    if (loadFactor > 0.7)
     {
         increaseSize();
     }
